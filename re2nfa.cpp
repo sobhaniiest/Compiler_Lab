@@ -130,10 +130,13 @@ int main()
     cin>>str;
     postfix();
 
+
+
 /////////////////////////////////////////////////////////////////////
 
     int i,ns1,ns2,j;
     char ch;
+
     char M[100][100];
     for(i=0;i<100;i++)
     {
@@ -149,11 +152,13 @@ int main()
     	if(ch >= 'a' && ch <= 'z')
     	{
     		t3++;
+
     		ns[t3].is = s;
     		s++;
     		ns[t3].fs = s;
     		s++;
     		M[ns[t3].is][ns[t3].fs] = ch;
+            //cout<<ns[t3].is<<" "<<ns[t3].fs<<"\n";
     	}
     	else if(ch == '*')
     	{
@@ -165,13 +170,15 @@ int main()
     		M[ns[t3].fs][ns2] = '^';
     		ns[t3].is = ns1;
     		ns[t3].fs = ns2; 
-    		cout<<ns1<<" "<<ns2<<"\n";   	
+            s+=2;
+    		   	
     	}
     	else if(ch == '.')
     	{
     		M[ns[t3-1].fs][ns[t3].is] = '^';
     		t3--;
     		ns[t3].fs = ns[t3+1].fs;
+            
     	}
     	else if(ch == '+')
     	{
@@ -184,20 +191,26 @@ int main()
     		t3--;
     		ns[t3].is = ns1;
     		ns[t3].fs = ns2; 
+            s+=2;
     	}
     	i++;
     }
-    cout<<"  ";
-
-    for(j=0;j<13;j++)
-    	cout<<j<<" ";
     cout<<"\n";
-    for(i=0;i<12;i++)
+
+    cout<<"Initial State : "<<ns[t3].is<<"\n";
+    cout<<"Final State : "<<ns[t3].fs<<"\n";
+
+    cout<<"Table : \n";
+
+    for(j=0;j<=ns[t3].fs;j++)
+    	cout<<"\t"<<j;
+    cout<<"\n";
+    for(i=0;i<=ns[t3].fs;i++)
     {   
-    	cout<<i<<" ";
-    	for(j=0;j<13;j++)
+    	cout<<i<<"\t";
+    	for(j=0;j<=ns[t3].fs;j++)
     	{
-    		cout<<M[i][j]<<" ";
+    		cout<<M[i][j]<<"\t";
     	}
     	cout<<"\n";
     }
